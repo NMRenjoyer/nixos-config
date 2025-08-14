@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, userSettings, ... }:
 
 {
-  home.username = "dcreetz";
-  home.homeDirectory = "/home/dcreetz";
+  home.username = userSettings.username;
+  home.homeDirectory = "/home/"+userSettings.username;
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   # This value determines the Home Manager release that your
@@ -19,7 +19,7 @@
     enable = true;
     overrideConfig = true;
     fonts.general = {
-    	family = "JetBrainsMono Nerd Font Mono";
+    	family = userSettings.font;
 	pointSize = 12;
     };
     workspace = {
@@ -34,7 +34,16 @@
   };
   programs.konsole = {
     enable = true;
-    defaultProfile = "Default";
+    defaultProfile = "shaymin";
+    profiles = {
+      shaymin = {
+        colorScheme = "";
+        font = {
+	  name = userSettings.font;
+	  size = 12;
+	};
+      };
+    };
   };
 
   programs.zsh = {
@@ -42,10 +51,11 @@
     shellAliases = {
       ll = "ls -l";
       ".." = "cd ..";
+      update = "sudo nixos-rebuild switch --flake .";
     };
   };
   # install and configure neovim
-  programs.neovim = {
+  programs.${userSettings.editor} = {
     enable = true;
   };
   # install and configure git
