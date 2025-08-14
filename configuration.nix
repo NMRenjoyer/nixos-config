@@ -137,7 +137,7 @@
   # programs.neovim.enable = true;
 
   # Install zoom-us;
-  programs.zoom-us.enable;
+  programs.zoom-us.enable = true;
 
   # Install and configure steam
   programs.steam = {
