@@ -126,15 +126,24 @@
   userSettings.fontPkg
   nerd-fonts.departure-mono
 ];
-
+  
+  # Basic programs to reconfigure nixos
+  
   # Install firefox. (managed by firefox.nix)
-#  programs.firefox.enable = true;
-  # Install git.
-#  programs.git.enable = true;
-  # Install neovim
-#  programs.neovim.enable = true;
-  # Install steam
-  programs.steam.enable = true;
+  # programs.firefox.enable = true;
+  # Install git. (managed by home-manager)
+  # programs.git.enable = true;
+  # Install neovim (managed by home-manager)
+  # programs.neovim.enable = true;
+
+  # Install zoom-us;
+  programs.zoom-us.enable;
+
+  # Install and configure steam
+  programs.steam = {
+    enable = true;
+  };
+  
   
 
 # Allow unfree packages
@@ -147,7 +156,6 @@
     wget
     pokeget-rs
     proton-pass
-  #  pavucontrol
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
