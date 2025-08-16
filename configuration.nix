@@ -143,7 +143,7 @@
   programs.steam = {
     enable = true;
   };
-  
+  hardware.steam-hardware.enable = true;
   
 
 # Allow unfree packages
@@ -156,6 +156,8 @@
     wget
     pokeget-rs
     proton-pass
+    protonvpn-gui
+    headsetcontrol
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -186,4 +188,3 @@
   system.stateVersion = "25.05"; # Did you read the comment?
 
 }
-
