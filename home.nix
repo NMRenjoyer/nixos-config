@@ -68,6 +68,7 @@
     };
   };
 
+
   # Vesktop - Discord alternative
   programs.vesktop = {
     enable = true;

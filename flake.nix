@@ -14,6 +14,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    nixcraft = {
+      url = "github:loystonpais/nixcraft";
+    };
   };
   outputs = {self, nixpkgs, home-manager, plasma-manager, ... }: let
     lib = nixpkgs.lib;

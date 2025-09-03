@@ -8,6 +8,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./${userSettings.browser}.nix
+      
   ];
 
   # Bootloader.
@@ -116,7 +117,7 @@
     ];
   };
   home-manager.users.dcreetz = { pkgs, ... }: {
-    home.packages = [ pkgs.atool pkgs.httpie ];
+    home.packages = [ pkgs.atool pkgs.httpie pkgs.prismlauncher ];
     programs.bash.enable = true;
     home.stateVersion = "25.05";
   };
