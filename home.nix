@@ -1,6 +1,10 @@
 { config, pkgs, userSettings, ... }:
 
 {
+  imports = [
+    ./env.nix
+  ];
+  
   home.username = userSettings.username;
   home.homeDirectory = "/home/"+userSettings.username;
   # Home Manager needs a bit of information about you and the
@@ -15,37 +19,6 @@
   # changes in each release.
   home.stateVersion = "25.05";
   
-  programs.plasma = {
-    enable = true;
-    overrideConfig = true;
-    fonts.general = {
-    	family = userSettings.font;
-	pointSize = 12;
-    };
-    workspace = {
-      lookAndFeel = "org.kde.breezetwilight.desktop";
-    };
-    hotkeys.commands."launch-konsole" = {
-      name = "Launch Konsole";
-      key = "Meta+Alt+K";
-      command = "konsole";
-    };
-
-  };
-  programs.konsole = {
-    enable = true;
-    defaultProfile = "shaymin";
-    profiles = {
-      shaymin = {
-        colorScheme = "";
-        font = {
-	  name = userSettings.font;
-	  size = 12;
-	};
-      };
-    };
-  };
-
   programs.zsh = {
     enable = true;
     shellAliases = {
@@ -61,7 +34,7 @@
   # install and configure git
   programs.git = {
     enable = true;
-    userName = "NMREnjoyer";
+    userName = "NMRenjoyer";
     userEmail = "dcreetz+github@proton.me";
     extraConfig = {
       init.defaultBranch = "main";

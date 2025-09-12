@@ -1,8 +1,9 @@
 # Edit this configuration file to define what should be installed on
+
 # ywqour system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, systemSettings, userSettings, ... }:
+{ config, pkgs, inputs, systemSettings, userSettings, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -69,9 +70,15 @@
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
 
-  # Enable the KDE Plasma Desktop Environment.
+  programs.hyprland = {
+    enable = true;
+#    package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+  };
+
+
+#  Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+#  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -90,8 +97,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    # jack.enable = true;
+    jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -112,7 +118,7 @@
     description = "David Reetz";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      kdePackages.kate
+#      kdePackages.kate
     #  thunderbird
     ];
   };
@@ -120,6 +126,7 @@
     home.packages = [ pkgs.atool pkgs.httpie pkgs.prismlauncher ];
     programs.bash.enable = true;
     home.stateVersion = "25.05";
+#    stylix.targets.xyz.enable = false;
   };
 
   # Install Fonts
@@ -146,7 +153,47 @@
   };
   hardware.steam-hardware.enable = true;
   
-
+stylix = {
+    enable = true;
+    image = ./wallpaper.jpg;
+/*    base16Scheme = {
+      base00 = "edf9dc";
+      base01 = "c6e994";
+      base02 = "a2d558";
+      base03 = "81bd29";
+      base04 = "62a207";
+      base05 = "478300";
+      base06 = "2e6000";
+      base07 = "183900";
+      base08 = "ff6a72";
+      base09 = "d1912d";
+      base0A = "7fbc27";
+      base0B = "3bd364";
+      base0C = "2fc8c0";
+      base0D = "61a1ff";
+      base0E = "b376ff";
+      base0F = "f75fce";
+    };
+    image = ./wallpaper.jpg;
+    fonts = {
+      monospace = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+	name = "JetBrainsMono Nerd Font Mono";
+      };
+      sansSerif = {
+        package = pkgs.dejavu_fonts;
+	name = "DejaVu Sans";
+      };
+      serif = {
+        package = pkgs.dejavu_fonts;
+	name = "DejaVu Serif";
+      };
+    };
+    #cursor = {
+     # package = pkgs.bibata-cursors;
+      #name = "Bibata-Modern-Classic";
+  */  #};
+  };
 # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -159,7 +206,10 @@
     proton-pass
     protonvpn-gui
     headsetcontrol
+    networkmanagerapplet
   ];
+  
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -175,7 +225,7 @@
   services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 25565 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;

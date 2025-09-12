@@ -1,28 +1,21 @@
 {
-  description = "default flake";
+  description = "desktop flake";
 
   inputs = {
-    nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixos-unstable";
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
         url = "github:nix-community/home-manager";
 	inputs.nixpkgs.follows = "nixpkgs";
     };
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
+    stylix = {
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
     };
-    nixcraft = {
-      url = "github:loystonpais/nixcraft";
-    };
+    hyprland.url = "github:hyprwm/Hyprland";
   };
-  outputs = {self, nixpkgs, home-manager, plasma-manager, ... }: let
+  outputs = {self, nixpkgs, home-manager, stylix, hyprland, ... }: let
     lib = nixpkgs.lib;
     pkgs = import nixpkgs { inherit (systemSettings) system; };
-    username = "dcreetz";
-    # system = "x86_64-linux";
     # ---- SYSTEM SETTINGS ---- #
     systemSettings = {
       system = "x86_64-linux";
@@ -36,8 +29,10 @@
       username = "dcreetz";
       name = "David Reetz";
       email = "dcreetz@proton.me";
+      terminal = "kitty";
       browser = "firefox";
       editor = "neovim";
+      fileManager = "dolphin";
       font = "JetBrainsMono Nerd Font Mono";
       fontPkg = pkgs.nerd-fonts.jetbrains-mono;
     };
@@ -47,11 +42,12 @@
         # inherit systemSettings
 	modules = [
 	  ./configuration.nix 
+	  stylix.nixosModules.stylix
 	  home-manager.nixosModules.home-manager {
 	    home-manager.useGlobalPkgs = true;
 	    home-manager.useUserPackages = true;
-	    home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
-	    home-manager.users."${username}" = ./home.nix;
+	    home-manager.backupFileExtension = "backup";
+	    home-manager.users."${userSettings.username}" = ./home.nix;
 	    home-manager.extraSpecialArgs = {
 	      inherit userSettings;
 	    };
@@ -62,6 +58,19 @@
 	  inherit userSettings;
 	};
       };
+    };
+    homeConfigurations."${userSettings.username}@${systemSettings.hostname}" = home-manager.lib.homeManagerConfiguration {
+      modules = [
+/*        {
+	  wayland.windowManager.hyprland = {
+	    enable = true;
+	    package = hyprland.packages.${systemSettings.system}.hyprland;
+	      portalPackage = hyprland.packages.${systemSettings.system}.xdg-desktop-portal-hyprland;
+	  };
+        }
+*/	stylix.homeModules.stylix
+	./home.nix
+      ];
     };
   };
 }
