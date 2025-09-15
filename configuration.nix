@@ -7,6 +7,8 @@
       users/users.nix
       systemServices/systemServices.nix
       ./packages.nix
+      theme/themeSys.nix
+      gaming/gaming.nix
   ];
 
   # Bootloader.
@@ -97,53 +99,6 @@
   # Install zoom-us;
   programs.zoom-us.enable = true;
 
-  # Install and configure steam
-  programs.steam = {
-    enable = true;
-  };
-  hardware.steam-hardware.enable = true;
-  
-stylix = {
-    enable = true;
-    image = ./wallpaper.jpg;
-/*    base16Scheme = {
-      base00 = "edf9dc";
-      base01 = "c6e994";
-      base02 = "a2d558";
-      base03 = "81bd29";
-      base04 = "62a207";
-      base05 = "478300";
-      base06 = "2e6000";
-      base07 = "183900";
-      base08 = "ff6a72";
-      base09 = "d1912d";
-      base0A = "7fbc27";
-      base0B = "3bd364";
-      base0C = "2fc8c0";
-      base0D = "61a1ff";
-      base0E = "b376ff";
-      base0F = "f75fce";
-    };
-    image = ./wallpaper.jpg;
-    fonts = {
-      monospace = {
-        package = pkgs.nerd-fonts.jetbrains-mono;
-	name = "JetBrainsMono Nerd Font Mono";
-      };
-      sansSerif = {
-        package = pkgs.dejavu_fonts;
-	name = "DejaVu Sans";
-      };
-      serif = {
-        package = pkgs.dejavu_fonts;
-	name = "DejaVu Serif";
-      };
-    };
-    #cursor = {
-     # package = pkgs.bibata-cursors;
-      #name = "Bibata-Modern-Classic";
-  */  #};
-  };
 # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 

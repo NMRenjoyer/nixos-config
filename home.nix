@@ -2,7 +2,7 @@
 
 {
   imports = [
-    environment/environment.nix
+    theme/themeHome.nix
   ];
   
   home.username = userSettings.username;
