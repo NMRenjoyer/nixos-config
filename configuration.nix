@@ -1,15 +1,12 @@
-# Edit this configuration file to define what should be installed on
-
-# ywqour system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, inputs, systemSettings, userSettings, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./${userSettings.browser}.nix
-      
+      users/users.nix
+      systemServices/systemServices.nix
+      ./packages.nix
   ];
 
   # Bootloader.
@@ -65,70 +62,23 @@
       };
     };
   };
-
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
-
+/*
   programs.hyprland = {
     enable = true;
-#    package = inputs.hyprland.packages."${pkgs.system}".hyprland;
   };
-
-
-#  Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
-#  services.desktopManager.plasma6.enable = true;
-
+*/
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   # install zsh
   environment.shells = with pkgs; [ zsh bash ];
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true; # zsh is managed by home-manager, this setting is still required.
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.dcreetz = {
-    isNormalUser = true;
-    description = "David Reetz";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-#      kdePackages.kate
-    #  thunderbird
-    ];
-  };
-  home-manager.users.dcreetz = { pkgs, ... }: {
-    home.packages = [ pkgs.atool pkgs.httpie pkgs.prismlauncher ];
-    programs.bash.enable = true;
-    home.stateVersion = "25.05";
-#    stylix.targets.xyz.enable = false;
-  };
-
+  
   # Install Fonts
   fonts.packages = with pkgs; [
   userSettings.fontPkg
@@ -199,18 +149,28 @@ stylix = {
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+/*  environment.systemPackages = with pkgs; [
     lf
     wget
-    pokeget-rs
+
+    ### security ###
+
     proton-pass
     protonvpn-gui
+
+    ### hardware interaction ###
+
     headsetcontrol
+
+    ### startup processes ###
+
     networkmanagerapplet
+
+    ### biology ###
+    
+    pymol
   ];
-  
-
-
+  */
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

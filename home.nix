@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./env.nix
+    environment/environment.nix
   ];
   
   home.username = userSettings.username;

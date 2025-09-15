@@ -14,9 +14,12 @@
 	
 	### startup ###
 
-      exec-once = "waybar &";
+      exec-once = [
+        "waybar &"
+        "nm-applet --indicator &"
+      ];
 
-	### appearance ###
+        ### appearance ###
 	
 	general = {
 	  
