@@ -162,7 +162,7 @@
 
 stylix = {
     enable = true;
-    image = ./wallpaper.jpg;
+    #image = ./wallpaper.jpg;
     base16Scheme = {
       base00 = "edf9dc";
       base01 = "c6e994";
