@@ -2,7 +2,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./${systemSettings.hostname}/hardware-configuration.nix
+      ./${systemSettings.hostname}_hardware-configuration.nix
       basicUtils/${userSettings.browser}.nix
       users/users.nix
       systemServices/systemServices.nix

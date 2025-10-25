@@ -35,10 +35,11 @@
   # install and configure git
   programs.git = {
     enable = true;
-    userName = "NMRenjoyer";
-    userEmail = "dcreetz+github@proton.me";
-    extraConfig = {
-      init.defaultBranch = "main";
+    settings = {
+      user = {
+	name = "NMRenjoyer";
+        email = "dcreetz+github@proton.me";
+      };
     };
   };
 
