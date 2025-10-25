@@ -159,8 +159,12 @@
   programs.rofi = {
     enable = true;
   };
+  
+#  programs.hyprshot = {
+#    enable = true;
+#  };
 
-stylix = {
+  stylix = {
     enable = true;
     image = ./wallpaper.jpg;
     base16Scheme = ./shaymintheme.yaml;

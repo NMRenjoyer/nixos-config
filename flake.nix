@@ -32,7 +32,7 @@
       terminal = "kitty";
       browser = "firefox";
       editor = "neovim";
-      fileManager = "dolphin";
+      fileManager = "lf";
       font = "JetBrainsMono Nerd Font Mono";
       fontPkg = pkgs.nerd-fonts.jetbrains-mono;
     };

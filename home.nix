@@ -3,6 +3,7 @@
 {
   imports = [
     theme/themeHome.nix
+    basicUtils/lf.nix
   ];
   
   home.username = userSettings.username;

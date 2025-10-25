@@ -1,19 +1,23 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    lf
     wget
-
+    pavucontrol
+    rofi-screenshot
+    hyprshot
     ### security ###
-
+    
     proton-pass
     protonvpn-gui
+ 
+    firefox-devedition
 
     networkmanagerapplet
     pokeget-rs
-
-    ### biology ###
     
-    pymol
+    libreoffice
+    
+    chromium
+    ### biology ###
   ];
 }
