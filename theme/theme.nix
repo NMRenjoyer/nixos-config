@@ -6,20 +6,8 @@
    ./kitty.nix
    ./mako.nix
    ./rofi.nix
+   ./portal.nix
    ./hyprpaper.nix
+   ./hyprshot.nix
   ];
-
-  xdg.portal = {
-    enable = true;
-    config.common.default = "gtk";
-    extraPortals = [pkgs.xdg-desktop-portal-gtk ];
-  };
-
-  programs.rofi = {
-    enable = true;
-  };
-  
-#  programs.hyprshot = {
-#    enable = true;
-#  };
 }

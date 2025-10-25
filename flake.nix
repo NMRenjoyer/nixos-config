@@ -15,13 +15,14 @@
   };
   outputs = {self, nixpkgs, home-manager, stylix, hyprland, ... }: let
     lib = nixpkgs.lib;
-    pkgs = import nixpkgs { inherit (commonSystemSettings) system; };
     # ---- SYSTEM SETTINGS ---- #
     commonSystemSettings = {
       system = "x86_64-linux";
       timezone = "America/Chicago";
       locale = "en_US.UTF-8";
     };
+    
+    pkgs = import nixpkgs { inherit (commonSystemSettings) system; };
 
     # ---- USER SETTINGS ---- #
     userSettings = {
@@ -35,6 +36,7 @@
       font = "JetBrainsMono Nerd Font Mono";
       fontPkg = pkgs.nerd-fonts.jetbrains-mono;
     };
+
   in {
     nixosConfigurations = {
       nixos-desktop = let
@@ -42,7 +44,6 @@
 	  hostname = "nixos-desktop";
 	};  
       in lib.nixosSystem {
-        # inherit systemSettings
 	modules = [
 	  ./${systemSettings.hostname}_configuration.nix 
 	  stylix.nixosModules.stylix
@@ -52,6 +53,7 @@
 	    home-manager.backupFileExtension = "backup";
 	    home-manager.users."${userSettings.username}" = ./home.nix;
 	    home-manager.extraSpecialArgs = {
+	      inherit systemSettings;
 	      inherit userSettings;
 	    };
 	  }
@@ -75,7 +77,8 @@
             home-manager.backupFileExtension = "backup";
             home-manager.users."${userSettings.username}" = ./home.nix;
             home-manager.extraSpecialArgs = {
-              inherit userSettings;
+              inherit systemSettings;
+	      inherit userSettings;
             };
           }
 	];

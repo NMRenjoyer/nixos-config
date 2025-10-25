@@ -1,10 +1,13 @@
-{ userSettings, ... }: 
+{ userSettings, systemSettings, ... }: 
 {
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
       # set monitor preferences
-      monitor = "HDMI-1,1920x1080@144,0x0,1";
+      monitor = if systemSettings.hostname == "nixos-desktop"
+        then "HDMI-1,1920x1080@144,0x0,1"
+        else "eDP-1,preferred,auto,1";
+
       # set variables and programs
       "$mod" = "SUPER";
       "$terminal" = "${userSettings.terminal}";
