@@ -44,7 +44,7 @@
         # Valid strings for installation_mode are "allowed", "blocked",
         # "force_installed" and "normal_installed".
         ExtensionSettings = {
-          "*".installation_mode = "allowed"; # blocks all addons except the ones specified below
+          "*".installation_mode = "allowed";
           # uBlock Origin:
           "uBlock0@raymondhill.net" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
@@ -103,4 +103,8 @@
       };
     };
   };
+  # dev edition for custom plugins
+  environment.systemPackages = with pkgs; [
+    firefox-devedition
+  ];
 }
