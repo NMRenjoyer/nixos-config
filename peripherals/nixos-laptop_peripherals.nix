@@ -1,0 +1,6 @@
+{ systemSettings, ... }:
+{
+  imports = [
+    ./print.nix
+  ];
+}

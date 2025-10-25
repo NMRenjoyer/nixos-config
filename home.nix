@@ -3,7 +3,7 @@
 {
   imports = [
     theme/themeHome.nix
-    basicUtils/lf.nix
+    basicUtils/${userSettings.fileManager}.nix
   ];
   
   home.username = userSettings.username;
@@ -19,7 +19,11 @@
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = "25.05";
+ 
+  home.packages = [ pkgs.atool pkgs.httpie pkgs.prismlauncher ];
   
+  programs.bash.enable = true;  
+
   programs.zsh = {
     enable = true;
     shellAliases = {
