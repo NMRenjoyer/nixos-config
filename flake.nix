@@ -1,5 +1,5 @@
 {
-  description = "desktop flake";
+  description = "flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -15,11 +15,10 @@
   };
   outputs = {self, nixpkgs, home-manager, stylix, hyprland, ... }: let
     lib = nixpkgs.lib;
-    pkgs = import nixpkgs { inherit (systemSettings) system; };
+    pkgs = import nixpkgs { inherit (commonSystemSettings) system; };
     # ---- SYSTEM SETTINGS ---- #
-    systemSettings = {
+    commonSystemSettings = {
       system = "x86_64-linux";
-      hostname = "nixos-desktop";
       timezone = "America/Chicago";
       locale = "en_US.UTF-8";
     };
@@ -38,10 +37,14 @@
     };
   in {
     nixosConfigurations = {
-      nixos-desktop = lib.nixosSystem {
+      nixos-desktop = let
+        systemSettings = commonSystemSettings // {
+	  hostname = "nixos-desktop";
+	};  
+      in lib.nixosSystem {
         # inherit systemSettings
 	modules = [
-	  ./configuration.nix 
+	  ./${systemSettings.hostname}_configuration.nix 
 	  stylix.nixosModules.stylix
 	  home-manager.nixosModules.home-manager {
 	    home-manager.useGlobalPkgs = true;
@@ -58,19 +61,29 @@
 	  inherit userSettings;
 	};
       };
-    };
-    homeConfigurations."${userSettings.username}@${systemSettings.hostname}" = home-manager.lib.homeManagerConfiguration {
-      modules = [
-/*        {
-	  wayland.windowManager.hyprland = {
-	    enable = true;
-	    package = hyprland.packages.${systemSettings.system}.hyprland;
-	      portalPackage = hyprland.packages.${systemSettings.system}.xdg-desktop-portal-hyprland;
-	  };
-        }
-*/	stylix.homeModules.stylix
-	./home.nix
-      ];
+      nixos-laptop = let
+        systemSettings = commonSystemSettings // {
+	  hostname = "nixos-laptop";
+	};
+      in lib.nixosSystem {
+        modules = [ 
+	  ./${systemSettings.hostname}_configuration.nix
+	  stylix.nixosModules.stylix
+	  home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+            home-manager.users."${userSettings.username}" = ./home.nix;
+            home-manager.extraSpecialArgs = {
+              inherit userSettings;
+            };
+          }
+	];
+	specialArgs = {
+	  inherit systemSettings;
+	  inherit userSettings;
+	};
+      };
     };
   };
 }
