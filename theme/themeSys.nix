@@ -2,6 +2,6 @@
 {
   imports = [
   ./stylixSys.nix
-  ./fonts.nix
+#  ./fonts.nix
   ];
 }
