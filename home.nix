@@ -2,7 +2,7 @@
 
 {
   imports = [
-    theme/themeHome.nix
+    theme/theme.nix
     basicUtils/${userSettings.fileManager}.nix
   ];
   

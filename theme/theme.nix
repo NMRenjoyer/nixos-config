@@ -7,7 +7,6 @@
    ./mako.nix
    ./rofi.nix
    ./hyprpaper.nix
-   ./stylixHome.nix
   ];
 
   xdg.portal = {
