@@ -20,7 +20,10 @@
   # changes in each release.
   home.stateVersion = "25.05";
  
-  home.packages = [ pkgs.atool pkgs.httpie pkgs.prismlauncher ];
+  home.packages = [ 
+  pkgs.prismlauncher
+  pkgs.wl-clipboard
+  ];
   
   programs.bash.enable = true;  
 

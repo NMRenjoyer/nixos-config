@@ -5,7 +5,7 @@
     settings = {
       # set monitor preferences
       monitor = if systemSettings.hostname == "nixos-desktop"
-        then "HDMI-1,1920x1080@144,0x0,1"
+        then "HDMI-A-1,preferred,auto,1"
         else [
 	  "eDP-1,preferred,auto,1"
 	  "HDMI-A-1,preferred,auto,1,mirror,eDP-1"
@@ -13,7 +13,6 @@
       # set variables and programs
       "$mod" = "SUPER";
       "$terminal" = "${userSettings.terminal}";
-      "$fileManager" = "${userSettings.fileManager}";
       "$browser" = "${userSettings.browser}";
       "$menu" = "rofi -show drun -show-icons";
 	
@@ -34,15 +33,22 @@
 	### hotkeys ###
       bind = [
 
-	
 	  "$mod, RETURN, exec, $terminal"
 	  "$mod, C, killactive"
 	  "$mod, code:1, exit"
-	  "$mod, L, exec, $fileManager"
 	  "$mod, F, exec, $browser"
 	  "$mod, R, exec, $menu"
 	  ", Print, exec, grimblast copy area"
 	  
+          # PrintScreen -> Capture area
+	  ", Print, exec, hyprshot -m region"
+	  
+	  # Shift + PrintScreen -> Capture current output (monitor)
+	  "SHIFT, Print, exec, hyprshot -m output"
+	  
+	  # Ctrl + PrintScreen -> Capture active window
+	  "CTRL, Print, exec, hyprshot -m window"
+
 	### workspaces ###
 
 	# move focus within workspace
@@ -86,13 +92,5 @@
         "5,persistent:true"
       ];
     };
-
-
-    # click and drag windows around workspace (change soon)
-#    bindm = [
-#      "$mod, mouse:272, movewindow"
-#      "$mod, mouse:273, resizewindow"
-#    ];
-    extraConfig = "";
   };
 } 
