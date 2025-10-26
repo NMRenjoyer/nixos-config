@@ -4,7 +4,7 @@
   programs.lf = {
     enable = true;
     commands = {
-      dragon-out = ''${pkgs.xdragon}/bin/dragon-drop -a -x "$fx"'';
+      #dragon-out = ''${pkgs.xdragon}/bin/dragon-drop -a -x "$fx"'';
       editor-open = ''nvim $f'';
       mkdir = ''
       ''${{
@@ -20,7 +20,6 @@
       o = "";
       c = "mkdir";
       "." = "set hidden!";
-      "`" = "mark-load";
       "\\'" = "mark-load";
       "<enter>" = "open";  
       "g~" = "cd";

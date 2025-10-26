@@ -26,7 +26,7 @@
     # browser
     homeModules/${userSettings.browser}.nix
     # file manager
-    homeModules/${userSettings.fileManager}.nix
+    homeModules/lf.nix
     # text editor
     homeModules/${userSettings.editor}.nix
 
@@ -55,6 +55,11 @@
   home.username = userSettings.username;
   home.homeDirectory = "/home/"+userSettings.username;
   home.stateVersion = "25.05";
+  
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
