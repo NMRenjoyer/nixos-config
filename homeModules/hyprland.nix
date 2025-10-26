@@ -20,7 +20,6 @@
 
       exec-once = [
         "waybar &"
-        "nm-applet --indicator &"
       ];
 
         ### appearance ###

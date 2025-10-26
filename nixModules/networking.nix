@@ -5,9 +5,9 @@
     networkmanager.enable = true;
   };
   
-  environment.systemPackages = with pkgs; [
-    networkmanagerapplet
+  networking.firewall.allowedTCPPorts = [
+    25565 #minecraft
   ];
-
+  
   services.openssh.enable = true;
 }

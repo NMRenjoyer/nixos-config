@@ -1,60 +1,60 @@
-{ config, pkgs, lib, userSettings, systemSettings, ... }:
+{ lib, userSettings, systemSettings, ... }:
 
 {
   imports = [
-    theme/theme.nix
-    basicUtils/${userSettings.fileManager}.nix
-    basicUtils/${userSettings.browser}.nix
-    basicUtils/security.nix
+    ### environment ###
+
+    # window manager
+    homeModules/hyprland.nix
+    # taskbar
+    homeModules/waybar.nix
+    # menu generator
+    homeModules/rofi.nix
+    # wallpaper util
+    homeModules/hyprpaper.nix
+    # notification daemon
+    homeModules/mako.nix
+    # window portal
+    homeModules/xdg-portal.nix
+    # screenshot util
+    homeModules/hyprshot.nix
+
+    ### basic programs ###
+
+    # terminal emulator
+    homeModules/${userSettings.terminal}.nix
+    # browser
+    homeModules/${userSettings.browser}.nix
+    # file manager
+    homeModules/${userSettings.fileManager}.nix
+    # text editor
+    homeModules/${userSettings.editor}.nix
+
+    ### CLI tools ###
+
+    # zsh
+    homeModules/zsh.nix
+    # git
+    homeModules/git.nix
+
+    # other packages to be managed by home-manager
+    homeModules/homePackages.nix
+  
   ] ++ lib.optionals (systemSettings.hostname == "nixos-desktop") [
-  ### Desktop only ###
-    gaming/minecraft.nix
+    ### desktop only ###
+
+    # discord client
+    homeModules/vesktop.nix
     # ...
   ] ++ lib.optionals (systemSettings.hostname == "nixos-laptop") [
-  ### Laptop only ###
+  ### laptop only ###
     # ...
   ];
   
+  # extra info for home-manager
   home.username = userSettings.username;
   home.homeDirectory = "/home/"+userSettings.username;
   home.stateVersion = "25.05";
- 
-  home.packages = [ 
-  pkgs.wl-clipboard
-  ];
-  
-  programs.bash.enable = true;  
-
-  programs.zsh = {
-    enable = true;
-    shellAliases = {
-      ll = "ls -l";
-      ".." = "cd ..";
-      update = "sudo nixos-rebuild switch --flake .";
-    };
-  };
-  # install and configure neovim
-  programs.${userSettings.editor} = {
-    enable = true;
-  };
-  # install and configure git
-  programs.git = {
-    enable = true;
-    settings = {
-      user = {
-	name = "NMRenjoyer";
-        email = "dcreetz+github@proton.me";
-      };
-    };
-  };
-
-
-  # Vesktop - Discord alternative
-  programs.vesktop = {
-    enable = true;
-  };
-  
-
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

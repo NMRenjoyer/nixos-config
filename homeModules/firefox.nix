@@ -99,9 +99,8 @@
       };
     };
   };
-  # alternate browsers
+  # firefox developer edition for custom addons
   home.packages = with pkgs; [
     firefox-devedition
-    chromium
   ];
 }
