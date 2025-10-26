@@ -19,6 +19,8 @@
     wl-clipboard
     # Open-source office suite
     libreoffice
+    #drag and drop utility
+    dragon-drop
 
     ### Alternate browsers ###
 

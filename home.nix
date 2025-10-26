@@ -26,7 +26,7 @@
     # browser
     homeModules/${userSettings.browser}.nix
     # file manager
-    homeModules/lf.nix
+    homeModules/${userSettings.fileManager}.nix
     # text editor
     homeModules/${userSettings.editor}.nix
 
