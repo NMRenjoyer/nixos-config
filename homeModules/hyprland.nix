@@ -50,7 +50,16 @@
       "$browser" = "${userSettings.browser}";
       "$menu" = "rofi -show drun -show-icons";
 	
+      general = {
+        # ...
+      };
+
+      input = {
+        numlock_by_default = true;
+      };
+
       ### startup ###
+
 
       exec-once = [
         "waybar &"
