@@ -4,6 +4,8 @@
   imports = [
     theme/theme.nix
     basicUtils/${userSettings.fileManager}.nix
+    basicUtils/${userSettings.browser}.nix
+    basicUtils/security.nix
   ] ++ lib.optionals (systemSettings.hostname == "nixos-desktop") [
   ### Desktop only ###
     gaming/minecraft.nix

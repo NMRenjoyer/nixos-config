@@ -1,7 +1,6 @@
 { pkgs, userSettings, ... }:
 {
   imports = [
-    ./${userSettings.browser}.nix
     ./shells.nix
   ];
    
@@ -14,8 +13,5 @@
     #security
     proton-pass
     protonvpn-gui
-
-    # alternate browser
-    chromium
   ];
 }
