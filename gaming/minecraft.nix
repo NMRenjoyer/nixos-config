@@ -1,4 +1,6 @@
-{ ... }:
+{ pkgs, ... }:
 {
-networking.firewall.allowedTCPPorts = [ 25565 ];
+  home.packages = [
+    pkgs.prismlauncher
+  ];
 }
