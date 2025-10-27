@@ -8,6 +8,7 @@
       "wheel" # sudouser
       "scanner" # SANE scanner privileges
       "lp" # CUPS printing privileges
+      "video" # allows backlight control with light
     ];
   };
 }

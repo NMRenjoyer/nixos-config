@@ -16,7 +16,7 @@
     keybindings = {
       o = "dragon-out";
       a = "mkdir";
-
+      f = "search";
       ### bookmarks ###
       "\\'" = "mark-load";
       "\\\"" = "mark-remove";
