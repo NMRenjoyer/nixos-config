@@ -18,7 +18,7 @@
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    # ...
   };
   outputs = {self, nixpkgs, home-manager, stylix, nvf, ... }: let
     lib = nixpkgs.lib;
@@ -35,78 +35,56 @@
     userSettings = {
       username = "dcreetz";
       name = "David Reetz";
-      email = "dcreetz@proton.me";
       terminal = "kitty";
       browser = "firefox";
       editor = "neovim";
       fileManager = "lf";
-      font = "JetBrainsMono Nerd Font Mono";
-      fontPkg = pkgs.nerd-fonts.jetbrains-mono;
     };
 
-  in {
-    nixosConfigurations = {
-      nixos-desktop = let
-        systemSettings = commonSystemSettings // {
-	  hostname = "nixos-desktop";
-	};  
-      in lib.nixosSystem {
-	modules = [
-	  ./${systemSettings.hostname}_configuration.nix 
-	  stylix.nixosModules.stylix
-	  home-manager.nixosModules.home-manager {
-	    home-manager.useGlobalPkgs = true;
-	    home-manager.useUserPackages = true;
-	    home-manager.backupFileExtension = "backup";
-	    home-manager.users."${userSettings.username}" = {
-              imports = [
-	        nvf.homeManagerModules.default
-	        ./home.nix
-	      ];
-	    };
-	    home-manager.extraSpecialArgs = {
-	      inherit systemSettings;
-	      inherit userSettings;
-#	      inherit nvf;
-	    };
-	  }
-        ];
-        specialArgs = {
-	  inherit systemSettings;
-	  inherit userSettings;
-	};
-      };
-      nixos-laptop = let
-        systemSettings = commonSystemSettings // {
-	  hostname = "nixos-laptop";
-	};
-      in lib.nixosSystem {
-        modules = [ 
-	  ./${systemSettings.hostname}_configuration.nix
-	  stylix.nixosModules.stylix
-#	  nvf.homeManagerModules.default
-	  home-manager.nixosModules.home-manager {
+    # ---- COMMON FUNCTION TO CREATE NIXOS SYSTEMS ----
+    # This function defines all the common setup (Home Manager, Stylix, nvf)
+    # and takes the hostname to make the configuration specific.
+    mkNixosSystem = hostname:
+      let
+        systemSettings = commonSystemSettings // { inherit hostname; };
+        nixosModules = [
+          # Host-specific hardware configuration (e.g., ./nixos-desktop_configuration.nix)
+          ./${hostname}_configuration.nix
+
+          # Common UI and configuration modules
+          stylix.nixosModules.stylix
+
+          # Home Manager setup
+          home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
-	    home-manager.users."${userSettings.username}" = {
+            home-manager.users."${userSettings.username}" = {
               imports = [
-	        nvf.homeManagerModules.default
-	        ./home.nix
-	      ];
-	    };
+                ./home.nix
+                # nvf manages neovim
+                nvf.homeManagerModules.default
+              ];
+            };
             home-manager.extraSpecialArgs = {
               inherit systemSettings;
-	      inherit userSettings;
-	      inherit nvf;
+              inherit userSettings;
             };
           }
-	];
-	specialArgs = {
-	  inherit systemSettings;
-	  inherit userSettings;
-	};
+        ];
+      in lib.nixosSystem {
+        modules = nixosModules;
+        specialArgs = {
+          inherit systemSettings;
+          inherit userSettings;
+        };
       };
+
+  in {
+    # ---- NIXOS CONFIGURATIONS (Now using the common function) ----
+    nixosConfigurations = {
+      nixos-desktop = mkNixosSystem "nixos-desktop";
+      nixos-laptop = mkNixosSystem "nixos-laptop";
     };
   };
 }

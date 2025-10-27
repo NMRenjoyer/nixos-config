@@ -10,8 +10,9 @@
 
     ### Hardware and Peripherals ###
     ./${systemSettings.hostname}_hardware-configuration.nix
+    nixModules/${systemSettings.hostname}_gpu.nix
     nixModules/keyboard.nix
-    nixModules/sound.nix
+    nixModules/audio.nix
     nixModules/print.nix
     nixModules/bluetooth.nix
     
