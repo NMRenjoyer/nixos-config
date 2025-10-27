@@ -7,6 +7,14 @@
         extraPackages = with pkgs; [
           nil
         ];
+        # autopairing of grouping characters
+        autopairs.nvim-autopairs.enable = true;
+        # status line
+        statusline.lualine.enable = true;
+        # search and picker utility
+        telescope.enable = true;
+        # autocomplete
+        autocomplete.nvim-cmp.enable = true;
         # Language Server Protocol setup
         lsp = {
           enable = false;
