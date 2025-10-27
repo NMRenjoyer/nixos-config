@@ -27,9 +27,8 @@
     homeModules/${userSettings.browser}.nix
     # file manager
     homeModules/${userSettings.fileManager}.nix
-    # text editor
+    # text editor   
     homeModules/${userSettings.editor}.nix
-
     ### CLI tools ###
 
     # zsh

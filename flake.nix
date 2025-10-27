@@ -3,17 +3,24 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    
     home-manager = {
         url = "github:nix-community/home-manager";
 	inputs.nixpkgs.follows = "nixpkgs";
     };
+
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
+    
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
-  outputs = {self, nixpkgs, home-manager, stylix, hyprland, ... }: let
+  outputs = {self, nixpkgs, home-manager, stylix, nvf, ... }: let
     lib = nixpkgs.lib;
     # ---- SYSTEM SETTINGS ---- #
     commonSystemSettings = {
@@ -51,10 +58,16 @@
 	    home-manager.useGlobalPkgs = true;
 	    home-manager.useUserPackages = true;
 	    home-manager.backupFileExtension = "backup";
-	    home-manager.users."${userSettings.username}" = ./home.nix;
+	    home-manager.users."${userSettings.username}" = {
+              imports = [
+	        nvf.homeManagerModules.default
+	        ./home.nix
+	      ];
+	    };
 	    home-manager.extraSpecialArgs = {
 	      inherit systemSettings;
 	      inherit userSettings;
+#	      inherit nvf;
 	    };
 	  }
         ];
@@ -71,14 +84,21 @@
         modules = [ 
 	  ./${systemSettings.hostname}_configuration.nix
 	  stylix.nixosModules.stylix
+#	  nvf.homeManagerModules.default
 	  home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
-            home-manager.users."${userSettings.username}" = ./home.nix;
+	    home-manager.users."${userSettings.username}" = {
+              imports = [
+	        nvf.homeManagerModules.default
+	        ./home.nix
+	      ];
+	    };
             home-manager.extraSpecialArgs = {
               inherit systemSettings;
 	      inherit userSettings;
+	      inherit nvf;
             };
           }
 	];

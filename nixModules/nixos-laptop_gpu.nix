@@ -6,7 +6,7 @@
   boot.initrd.availableKernelModules = [ "i915" ];
 
   # enable OpenGL (req. by wayland)
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   # configure the NVIDIA driver for Wayland
   hardware.nvidia.modesetting.enable = true;       # req. by wayland
