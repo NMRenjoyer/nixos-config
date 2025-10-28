@@ -14,7 +14,7 @@
           ] else [
             ### Laptop Setup ###
             "eDP-1, preferred, auto, 1"    # Primary
-            "HDMI-A-1, preferred, auto, 1" # Secondary
+            "HDMI-A-4, preferred, auto, 1" # Secondary
           ];
 
         workspaceRules =
@@ -36,10 +36,10 @@
             "3, monitor:eDP-1, persistent:true"
             "4, monitor:eDP-1, persistent:true"
             "5, monitor:eDP-1, persistent:true"
-            "6, monitor:HDMI-A-1, persistent:true" # Workspaces 6-9 on the HDMI-A-1 monitor
-            "7, monitor:HDMI-A-1, persistent:true"
-            "8, monitor:HDMI-A-1, persistent:true"
-            "9, monitor:HDMI-A-1, persistent:true"
+            "6, monitor:HDMI-A-4, persistent:true" # Workspaces 6-9 on the HDMI-A-1 monitor
+            "7, monitor:HDMI-A-4, persistent:true"
+            "8, monitor:HDMI-A-4, persistent:true"
+            "9, monitor:HDMI-A-4, persistent:true"
           ];
         in {
       monitor = monitorConfig;

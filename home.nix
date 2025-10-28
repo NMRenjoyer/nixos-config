@@ -35,6 +35,8 @@
     homeModules/zsh.nix
     # git
     homeModules/git.nix
+    # fzf, general fuzzy finder
+    homeModules/fzf.nix
 
     # other packages to be managed by home-manager
     homeModules/homePackages.nix
