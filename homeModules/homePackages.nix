@@ -32,7 +32,7 @@
     # proton password manager
     proton-pass
     # protonvpn command-line interface
-    protonvpn-cli
+    protonvpn-gui
 
   ] ++ lib.optionals (systemSettings.hostname == "nixos-desktop") [
     ### Desktop only ###
